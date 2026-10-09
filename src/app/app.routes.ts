@@ -20,6 +20,14 @@ export const routes: Routes = [
             (m) => m.CATEGORIAS_ROUTES,
           ),
       },
+      {
+        path: 'productos',
+        title: 'Productos',
+        loadComponent: () =>
+          import(
+            './features/productos/pages/producto-list/producto-list'
+          ).then((m) => m.ProductoList),
+      },
     ],
   },
   {

@@ -1,0 +1,50 @@
+<section class="page">
+  <header class="page-header">
+    <h2>Productos</h2>
+  </header>
+
+  @if (categoriaSeleccionada()) {
+    <p>
+      Mostrando productos de la categoría ID:
+      <strong>{{ categoriaSeleccionada() }}</strong>
+    </p>
+  }
+
+  <p>Se muestran como máximo los primeros 100 productos.</p>
+
+  @if (cargando()) {
+    <p>Cargando productos…</p>
+  } @else if (error()) {
+    <div class="alerta">{{ error() }}</div>
+  } @else {
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (p of productos(); track p.id) {
+          <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>S/ {{ p.precio }}</td>
+            <td>{{ p.stock }}</td>
+            <td>{{ p.estado ? 'Activo' : 'Inactivo' }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="vacio">
+              No hay productos para esta categoría.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>
