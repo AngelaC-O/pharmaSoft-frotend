@@ -1,9 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { PaginaResponse } from '../../../core/models/pagina-response';
+
 import {
     FiltroVentas,
     Venta,
@@ -54,9 +55,39 @@ export class VentaService {
       params = params.set('hasta', filtro.hasta);
     }
 
-    return this.http.get<PaginaResponse<Venta>>(
-      `${this.url}/buscar`,
-      { params }
-    );
+    return this.http
+      .get<any>(`${this.url}/buscar`, { params })
+      .pipe(
+        map(respuesta => {
+
+          const contenido: Venta[] =
+            Array.isArray(respuesta)
+              ? respuesta
+              : respuesta.contenido ?? respuesta.content ?? [];
+
+          return {
+            contenido,
+            pagina: respuesta?.pagina ?? respuesta?.number ?? pagina,
+            tamanio: respuesta?.tamanio ?? respuesta?.size ?? contenido.length,
+            totalElementos:
+              respuesta?.totalElementos ??
+              respuesta?.totalElements ??
+              contenido.length,
+            totalPaginas:
+              respuesta?.totalPaginas ??
+              respuesta?.totalPages ??
+              1,
+            primera:
+              respuesta?.primera ??
+              respuesta?.first ??
+              pagina === 0,
+            ultima:
+              respuesta?.ultima ??
+              respuesta?.last ??
+              true
+          };
+
+        })
+      );
   }
 }
