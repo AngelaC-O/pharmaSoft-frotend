@@ -1,0 +1,187 @@
+<section class="page">
+
+  <div class="page-header">
+    <div>
+      <h2>Reporte de ventas por categoría</h2>
+
+      <p class="descripcion">
+        Consulta las ventas registradas agrupadas por categoría.
+      </p>
+    </div>
+  </div>
+
+  <div class="card filtros">
+
+    <div class="campo">
+      <label for="desde">Desde</label>
+
+      <input
+        id="desde"
+        class="input"
+        type="date"
+        [value]="desde()"
+        (change)="cambiarDesde($any($event.target).value)"
+      />
+    </div>
+
+    <div class="campo">
+      <label for="hasta">Hasta</label>
+
+      <input
+        id="hasta"
+        class="input"
+        type="date"
+        [value]="hasta()"
+        (change)="cambiarHasta($any($event.target).value)"
+      />
+    </div>
+
+    <div class="acciones">
+      <button
+        type="button"
+        class="btn"
+        (click)="limpiar()"
+      >
+        Limpiar
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="generar()"
+      >
+        Generar
+      </button>
+    </div>
+
+  </div>
+
+  @if (error()) {
+
+    <div class="alerta">
+      {{ error() }}
+    </div>
+
+  }
+
+  @if (cargando()) {
+
+    <div class="card estado">
+      Cargando reporte...
+    </div>
+
+  } @else {
+
+    @if (
+      resultados().length === 0 &&
+      !error()
+    ) {
+
+      <div class="card estado">
+        No hay ventas en el periodo seleccionado.
+      </div>
+
+    } @else if (resultados().length > 0) {
+
+      <div class="card tabla-contenedor">
+
+        <table class="tabla">
+
+          <thead>
+            <tr>
+              <th>Categoría</th>
+              <th>Unidades vendidas</th>
+              <th>Monto</th>
+              <th>Comparación</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            @for (
+              item of resultados();
+              track item.categoriaId
+            ) {
+
+              <tr>
+
+                <td>
+                  <strong>
+                    {{ item.categoriaNombre }}
+                  </strong>
+                </td>
+
+                <td>
+                  {{ item.cantidadVendida }}
+                </td>
+
+                <td>
+                  {{
+                    item.montoTotal
+                      | currency:'PEN':'symbol':'1.2-2'
+                  }}
+                </td>
+
+                <td class="celda-barra">
+
+                  <div class="barra-fondo">
+
+                    <div
+                      class="barra"
+                      [style.width.%]="porcentaje(item)"
+                    ></div>
+
+                  </div>
+
+                  <span class="porcentaje">
+                    {{
+                      porcentaje(item)
+                        | number:'1.0-1'
+                    }}%
+                  </span>
+
+                </td>
+
+              </tr>
+            }
+
+          </tbody>
+
+          <tfoot>
+
+            <tr>
+
+              <td>
+                <strong>TOTAL</strong>
+              </td>
+
+              <td>
+                <strong>
+                  {{ totalUnidades() }}
+                </strong>
+              </td>
+
+              <td>
+                <strong>
+                  {{
+                    totalMonto()
+                      | currency:'PEN':'symbol':'1.2-2'
+                  }}
+                </strong>
+              </td>
+
+              <td></td>
+
+            </tr>
+
+          </tfoot>
+
+        </table>
+
+      </div>
+
+    }
+
+  }
+
+</section>

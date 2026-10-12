@@ -1,0 +1,152 @@
+.page {
+  width: 100%;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.page-header h2 {
+  margin: 0;
+  color: #0f2e5c;
+  font-size: 30px;
+}
+
+.descripcion {
+  margin-top: 6px;
+  color: #64748b;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+}
+
+.filtros {
+  display: flex;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+}
+
+.campo label {
+  font-weight: 600;
+  color: #0f2e5c;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.btn-primary {
+  background: #123668;
+  color: white;
+  border-color: #123668;
+}
+
+.alerta {
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  background: #fef3f2;
+  color: #b42318;
+}
+
+.estado {
+  color: #64748b;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla th {
+  background: #123668;
+  color: #ffffff;
+  padding: 13px;
+  text-align: left;
+}
+
+.tabla td {
+  padding: 14px 13px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla tfoot td {
+  border-top: 2px solid #123668;
+  border-bottom: none;
+  font-size: 17px;
+}
+
+.celda-barra {
+  min-width: 280px;
+}
+
+.barra-fondo {
+  width: 180px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.barra {
+  height: 100%;
+  background: #123668;
+  border-radius: 999px;
+}
+
+.porcentaje {
+  margin-left: 10px;
+  font-weight: 600;
+  color: #475569;
+}
+
+@media (max-width: 800px) {
+
+  .filtros {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .campo {
+    min-width: 0;
+  }
+}
