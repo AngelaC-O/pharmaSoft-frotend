@@ -40,6 +40,14 @@ export const routes: Routes = [
           import('./features/ventas/ventas.routes')
             .then(m => m.VENTAS_ROUTES),
       },
+
+      // ---------------- REPORTES ----------------
+      {
+        path: 'reportes',
+        loadChildren: () =>
+          import('./features/reportes/reportes.routes')
+            .then(m => m.REPORTES_ROUTES),
+      },
     ],
   },
 
