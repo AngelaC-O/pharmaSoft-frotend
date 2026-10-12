@@ -6,19 +6,23 @@ export const routes: Routes = [
     path: '',
     component: MainLayout,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'inicio' },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'inicio'
+      },
       {
         path: 'inicio',
         title: 'Inicio',
         loadComponent: () =>
-          import('./features/inicio/inicio').then((m) => m.Inicio),
+          import('./features/inicio/inicio')
+            .then(m => m.Inicio),
       },
       {
         path: 'categorias',
         loadChildren: () =>
-          import('./features/categorias/categorias.routes').then(
-            (m) => m.CATEGORIAS_ROUTES,
-          ),
+          import('./features/categorias/categorias.routes')
+            .then(m => m.CATEGORIAS_ROUTES),
       },
       {
         path: 'productos',
@@ -26,16 +30,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import(
             './features/productos/pages/producto-list/producto-list'
-          ).then((m) => m.ProductoList),
+          ).then(m => m.ProductoList),
+      },
+
+      // ---------------- VENTAS ----------------
+      {
+        path: 'ventas',
+        loadChildren: () =>
+          import('./features/ventas/ventas.routes')
+            .then(m => m.VENTAS_ROUTES),
       },
     ],
   },
+
   {
     path: '**',
     title: 'Página no encontrada',
     loadComponent: () =>
-      import('./shared/pages/no-encontrado/no-encontrado').then(
-        (m) => m.NoEncontrado,
-      ),
+      import('./shared/pages/no-encontrado/no-encontrado')
+        .then(m => m.NoEncontrado),
   },
 ];
